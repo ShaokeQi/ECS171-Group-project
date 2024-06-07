@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Diabetes Prediction</title>
+    <link rel="stylesheet" href="static/style.css">
+    <script>
+        function setRandomBackground() {
+            var images = [
+                'static/background1.jpg',
+                'static/background2.jpg',
+                'static/background3.jpg',
+                'static/background4.jpg',
+                'static/background5.jpg',
+                'static/background6.jpg',
+            ];
+            var randomImage = images[Math.floor(Math.random() * images.length)];
+            document.body.style.backgroundImage = 'url(' + randomImage + ')';
+            document.body.style.backgroundRepeat = 'no-repeat';
+            document.body.style.backgroundPosition = 'center center';
+            document.body.style.backgroundAttachment = 'fixed';
+            document.body.style.backgroundSize = 'cover';
+        }
+        window.onload = setRandomBackground;
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Diabetes Prediction</h1>
+        <form action="/predict" method="post">
+            <label for="model">Select Model:</label>
+            <select name="model" id="model">
+                <option value="Linear Regression">Linear Regression</option>
+                <option value="Perceptron">Perceptron</option>
+                <option value="DFNN">DFNN</option>
+            </select>
+
+            <label for="Pregnancies">Pregnancies:</label>
+            <input type="text" name="Pregnancies" id="Pregnancies" required>
+
+            <label for="Glucose">Glucose:</label>
+            <input type="text" name="Glucose" id="Glucose" required>
+
+            <label for="BloodPressure">Blood Pressure:</label>
+            <input type="text" name="BloodPressure" id="BloodPressure" required>
+
+            <label for="SkinThickness">Skin Thickness:</label>
+            <input type="text" name="SkinThickness" id="SkinThickness" required>
+
+            <label for="Insulin">Insulin:</label>
+            <input type="text" name="Insulin" id="Insulin" required>
+
+            <label for="BMI">BMI:</label>
+            <input type="text" name="BMI" id="BMI" required>
+
+            <label for="DiabetesPedigreeFunction">Diabetes Pedigree Function:</label>
+            <input type="text" name="DiabetesPedigreeFunction" id="DiabetesPedigreeFunction" required>
+
+            <label for="Age">Age:</label>
+            <input type="text" name="Age" id="Age" required>
+
+            <input type="submit" value="Predict">
+        </form>
+
+        {% if prediction_text %}
+        <div class="result-box">
+            <h2>{{ prediction_text }}</h2>
+            <p>Model: {{ model_name }}</p>
+            {% if accuracy %}
+            <p>Accuracy: {{ accuracy }}</p>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        {% if error_text %}
+        <div class="result-box">
+            <h2>Error: {{ error_text }}</h2>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
+
+
+
+
